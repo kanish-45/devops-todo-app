@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [status, setStatus] = useState(null);
+
+  useEffect(() => {
+    fetch('/status')
+      .then((res) => res.json())
+      .then((data) => setStatus(data))
+      .catch((err) => console.error('Error fetching status:', err));
+  }, []);
+
+  if (!status) return <p>Loading status…</p>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+      <h1>🛠️ DevOps Todo App</h1>
+      <p>
+        <strong>API Status:</strong> {status.status}
+      </p>
+      <p>
+        <strong>Timestamp:</strong>{' '}
+        {new Date(status.timestamp).toLocaleString()}
+      </p>
     </div>
   );
 }

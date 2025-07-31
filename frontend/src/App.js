@@ -4,7 +4,7 @@ function App() {
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    fetch('/status')
+    fetch("http://localhost:4000/status")
       .then((res) => res.json())
       .then((data) => setStatus(data))
       .catch((err) => console.error('Error fetching status:', err));
@@ -15,9 +15,7 @@ function App() {
   return (
     <div style={{ textAlign: 'center', marginTop: '2rem' }}>
       <h1>🛠️ DevOps Todo App</h1>
-      <p>
-        <strong>API Status:</strong> {status.status}
-      </p>
+      <p><strong>API Status:</strong> {status.status}</p>
       <p>
         <strong>Timestamp:</strong>{' '}
         {new Date(status.timestamp).toLocaleString()}

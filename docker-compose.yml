@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    image: kanish45/todo-backend:latest
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build:
+      context: ./frontend
+    image: kanish45/todo-frontend:latest
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
